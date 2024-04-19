@@ -1,0 +1,46 @@
+name: Continuous Integration
+
+on: [push, pull_request]
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      # - name: Setup Miniconda
+      #   uses: conda-incubator/setup-miniconda@v2
+      #   with:
+      #     auto-update-conda: true
+      #     python-version: '3.8'
+      #     environment-file: environment.yml
+      #     activate-environment: $(PROJECT_NAME)
+
+      # - name: Lint with flake8
+      #   run: |
+      #     # Activates the Conda environment and then lints the project.
+      #     echo "Activating Conda environment."
+      #     source activate $(PROJECT_NAME)
+      #     echo "Linting with flake8."
+      #     flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+      #     flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+      - name: Test with pytest
+        run: |
+          # Assumes tests are setup to run with pytest
+          pip install pytest
+          echo "Testing with pytest."
+          pytest
+
+
+      # TDOO: Make the jenkins available with nginx in openstack somehow and then trigger the jenkins job
+      - name: Trigger Jenkins Job for Further Actions
+        if: success()
+        uses: appleboy/jenkins-action@master
+        with:
+          url: ${{ secrets.JENKINS_URL }}
+          user: ${{ secrets.JENKINS_USER }}
+          token: ${{ secrets.JENKINS_TOKEN }}
+          job: "usl_for_embedding_gpu-intensive_tasks"
+    
+          
