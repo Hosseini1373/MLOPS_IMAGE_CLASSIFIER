@@ -20,7 +20,7 @@ def setup_training(root_path, image_size, batch_size, nworkers, epochs):
 
 
 if __name__ == "__main__":
-    ROOT_DIR = "/mnt/c/Users/Glenn/Downloads/archive/PetImages/*/*"
+    ROOT_DIR = "/home/glace/repos/MLOPS_IMAGE_CLASSIFIER/PetImages/*/*"
     BATCH_SIZE = 4
     N_WORKERS = 4
     IMAGE_SIZE = 256
