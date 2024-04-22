@@ -1,14 +1,18 @@
 from torchvision.transforms.v2 import Resize
 import re
 import glob
-from torchvision.io import read_image
 from torch.utils.data import Dataset, DataLoader
 from torchvision.transforms.v2 import ToPILImage
+from torchvision.transforms import functional as F
+import PIL
+from matplotlib import pyplot as plt
 
 
-def get_img(path, size):
-    #.to(torch.half)
-    return Resize((size, size), antialias=True)(read_image(path)) / 255
+def get_img(path, image_size):
+    # dog 11702, cat 666 corrupted
+    img = PIL.Image.open(path).convert("RGB")
+    tensor = F.to_tensor(img) / 255
+    return Resize((image_size, image_size), antialias=True)(tensor)
 
 
 def produce_labels(paths):
@@ -43,6 +47,16 @@ def create_loaders(root_path, image_size, bsize, nworkers):
     return train_loader, test_loader
 
 
+def test_images_not_corrupted():
+    folder_path = "/home/glace/repos/MLOPS_IMAGE_CLASSIFIER/PetImages/*/*"  # Update with your folder path
+    for filename in glob.glob(folder_path):
+        if filename.endswith(".jpg") or filename.endswith(".png"):
+            try:
+                plt.imread(filename)
+            except Exception as e:
+                assert False, f"Error reading image {filename}: {str(e)}"
+
+
 if __name__ == "__main__":
     ROOT_DIR = "/home/glace/repos/MLOPS_IMAGE_CLASSIFIER/PetImages/*/*"
     BATCH_SIZE = 4
@@ -51,6 +65,3 @@ if __name__ == "__main__":
 
     train_loader, test_loader = create_loaders(ROOT_DIR, IMAGE_SIZE,
                                                BATCH_SIZE, N_WORKERS)
-
-    #img = ToPILImage()(next(iter(train_loader))[0][0])
-    #img.show()
