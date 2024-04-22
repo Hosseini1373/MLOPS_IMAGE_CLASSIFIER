@@ -6,6 +6,7 @@ from torchvision.transforms.v2 import ToPILImage
 from torchvision.transforms import functional as F
 import PIL
 from matplotlib import pyplot as plt
+from torch.utils.data import random_split
 
 
 def get_img(path, image_size):
@@ -39,12 +40,17 @@ class dset(Dataset):
 
 
 def create_loaders(root_path, image_size, bsize, nworkers):
-    train_loader = DataLoader(dset(root_path, size=image_size),
+    data = dset(root_path, size=image_size)
+    train_data, valid_data, test_data = random_split(data, (0.7, 0.15, 0.15))
+    train_loader = DataLoader(train_data,
                               batch_size=bsize,
                               shuffle=True,
                               num_workers=nworkers)
-    test_loader = None
-    return train_loader, test_loader
+    valid_loader = DataLoader(valid_data,
+                              batch_size=bsize,
+                              shuffle=False,
+                              num_workers=nworkers)
+    return train_loader, valid_loader
 
 
 def test_images_not_corrupted():
@@ -63,5 +69,6 @@ if __name__ == "__main__":
     N_WORKERS = 4
     IMAGE_SIZE = 256
 
-    train_loader, test_loader = create_loaders(ROOT_DIR, IMAGE_SIZE,
-                                               BATCH_SIZE, N_WORKERS)
+    train_loader, valid_loader = create_loaders(ROOT_DIR,
+                                                IMAGE_SIZE,
+                                                BATCH_SIZE, N_WORKERS)

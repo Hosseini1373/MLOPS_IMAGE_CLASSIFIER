@@ -28,7 +28,7 @@ class MobileNet(lt.LightningModule):
         self.model = model
 
         self.n_classes = 2
-
+        self.save_hyperparameters()
         self.mclass_accuracy = BinaryAccuracy()
         self.mclass_precision = BinaryPrecision()
         self.mclass_recall = BinaryRecall()
