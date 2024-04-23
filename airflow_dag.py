@@ -1,3 +1,4 @@
+import requests
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 from airflow.providers.ssh.operators.ssh import SSHOperator

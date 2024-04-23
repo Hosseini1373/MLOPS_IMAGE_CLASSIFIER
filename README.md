@@ -58,8 +58,14 @@ Project Organization
 
 
 ## Aiflow
+
+Install docker-compose:
+`sudo apt update`
+`sudo apt install docker-compose`
+
+
 Starting the airflow:
-`docker-compose up`
+`sudo docker compose up`
 
 Access the Airflow UI:
 http://[INTERNAL-VM-IP]:8080

@@ -10,19 +10,27 @@ services:
       - "5432:5432"
 
   webserver:
-    image: apache/airflow
+    image: apache/airflow:2.9.0
     environment:
-      - LOAD_EX=n
+      - AIRFLOW__CORE__LOAD_EXAMPLES=n
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__WEBSERVER__EXPOSE_CONFIG=True
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres/airflow
     depends_on:
       - postgres
     ports:
       - "8080:8080"
-    command: webserver
+    entrypoint: /bin/bash
+    command: -c "airflow db init && airflow webserver"
 
   scheduler:
-    image: apache/airflow
+    image: apache/airflow:2.9.0
     environment:
-      - LOAD_EX=n
+      - AIRFLOW__CORE__LOAD_EXAMPLES=n
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__WEBSERVER__EXPOSE_CONFIG=True
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres/airflow
     depends_on:
       - webserver
-    command: scheduler
+    entrypoint: /bin/bash
+    command: -c "airflow db upgrade && airflow scheduler"
