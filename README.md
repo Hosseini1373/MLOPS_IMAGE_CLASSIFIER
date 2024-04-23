@@ -54,4 +54,23 @@ Project Organization
 
 --------
 
+
+
+
+## Aiflow
+Starting the airflow:
+`docker-compose up`
+
+Access the Airflow UI:
+http://[INTERNAL-VM-IP]:8080
+
+Remember to set the necessary variables in Airflow's UI under "Admin" -> "Variables" for database_conn_id, ssh_conn_id, and model_serving_api_url.
+
+The corresponding Airflow DAG is inside `airflow-dag.py`
+
+
+
+
+
+## Achnowledgements
 <p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>

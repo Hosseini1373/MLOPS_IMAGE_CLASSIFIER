@@ -1,0 +1,28 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=airflow
+      - POSTGRES_PASSWORD=airflow
+      - POSTGRES_DB=airflow
+    ports:
+      - "5432:5432"
+
+  webserver:
+    image: apache/airflow
+    environment:
+      - LOAD_EX=n
+    depends_on:
+      - postgres
+    ports:
+      - "8080:8080"
+    command: webserver
+
+  scheduler:
+    image: apache/airflow
+    environment:
+      - LOAD_EX=n
+    depends_on:
+      - webserver
+    command: scheduler

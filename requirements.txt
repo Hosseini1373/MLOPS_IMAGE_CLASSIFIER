@@ -12,6 +12,7 @@ lightning
 kaggle
 bentoml
 transformers
+apache-airflow
 
 torch
 torchvision
