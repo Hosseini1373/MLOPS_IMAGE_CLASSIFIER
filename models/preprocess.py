@@ -54,7 +54,7 @@ def create_loaders(root_path, image_size, bsize, nworkers):
 
 
 def test_images_not_corrupted():
-    folder_path = "/home/glace/repos/MLOPS_IMAGE_CLASSIFIER/PetImages/*/*"  # Update with your folder path
+    folder_path = "/home/glenn/repos/MLOPS_IMAGE_CLASSIFIER/PetImages/*/*"
     for filename in glob.glob(folder_path):
         if filename.endswith(".jpg") or filename.endswith(".png"):
             try:
@@ -64,7 +64,8 @@ def test_images_not_corrupted():
 
 
 if __name__ == "__main__":
-    ROOT_DIR = "/home/glace/repos/MLOPS_IMAGE_CLASSIFIER/PetImages/*/*"
+    #ROOT_DIR = "/home/glace/repos/MLOPS_IMAGE_CLASSIFIER/PetImages/*/*"
+    ROOT_DIR = "/home/glenn/repos/MLOPS_IMAGE_CLASSIFIER/PetImages/*/*"
     BATCH_SIZE = 4
     N_WORKERS = 4
     IMAGE_SIZE = 256

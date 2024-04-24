@@ -1,4 +1,4 @@
-import lightning as lt
+import lightning as pl
 from torch.optim import Adam
 from torch import nn
 from torchmetrics.classification import BinaryAccuracy, BinaryPrecision, \
@@ -8,7 +8,7 @@ from torchvision.models import mobilenet_v3_large
 import torch
 
 
-class MobileNet(lt.LightningModule):
+class MobileNet(pl.LightningModule):
     def __init__(self):
         super().__init__()
 
@@ -83,5 +83,5 @@ class MobileNet(lt.LightningModule):
 if __name__ == "__main__":
     test_batch = torch.rand((16, 3, 32, 32))
     model = MobileNet()
-    print(model)
+    print(type(model))
     print(model(test_batch))
