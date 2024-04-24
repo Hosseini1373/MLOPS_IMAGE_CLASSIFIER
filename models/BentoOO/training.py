@@ -24,20 +24,12 @@ def setup_training(root_path, image_size, batch_size, nworkers, epochs,
         trainer.fit(model=model, train_dataloaders=train_loader,
                     val_dataloaders=valid_loader)
 
-    """
-    with open("saved_model.pkl", "wb") as f:
-        torch.save(trainer, f=f)
-    """
     ROOT_CHECKPOINT_PATH = "MobileNet/lightning_logs"
     latest_verison = sorted(os.listdir(ROOT_CHECKPOINT_PATH))[-1]
     checkpoint_path = os.path.join(os.path.join(ROOT_CHECKPOINT_PATH, latest_verison), "checkpoints/MobileNet.ckpt")
     #check_point = torch.load(checkpoint_path)
     model = MobileNet.load_from_checkpoint(checkpoint_path=checkpoint_path)
     #check_point = torch.load(checkpoint_path)
-    """
-    bentoml.picklable_model.save_model("CD-Classifier", model=model,
-                                         custom_objects={"weights": check_point})
-    """
     bentoml.picklable_model.save_model("CD-Classifier", model=model)
 
 
