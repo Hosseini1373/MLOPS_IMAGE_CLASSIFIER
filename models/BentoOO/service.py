@@ -6,6 +6,7 @@ from torchvision.transforms import functional as F
 from torchvision.transforms.v2 import Resize
 import io
 import base64
+from MobileNetV3 import MobileNet
 #VM_IP:443/inference --> Bento-Server
 
 

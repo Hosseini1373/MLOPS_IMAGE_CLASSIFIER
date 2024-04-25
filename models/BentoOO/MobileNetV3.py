@@ -7,9 +7,6 @@ from torchmetrics.classification import BinaryAccuracy, BinaryPrecision, \
 from torchvision.models import mobilenet_v3_large
 import torch
 
-class MNet(pl.LightningModule):
-    def __init__(self):
-        super().__init__()
 
 class MobileNet(pl.LightningModule):
     def __init__(self):
