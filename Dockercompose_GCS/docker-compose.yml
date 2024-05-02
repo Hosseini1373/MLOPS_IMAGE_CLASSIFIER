@@ -1,0 +1,23 @@
+version: '1'
+services:
+
+  api:
+    restart: always
+    image: romo1o/back-end:latest
+    container_name: api
+    ports:
+      - 5001:5000
+
+  ui:
+    restart: always
+    image: romo1o/front-end:latest
+    container_name: ui
+    ports:
+      - 444:8501
+
+  bento:
+    restart: always
+    image: bethagle/animal_classifier:latest
+    container_name: bento
+    ports:
+      - 3000:3000
