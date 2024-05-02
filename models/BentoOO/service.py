@@ -20,7 +20,7 @@ class Classifier:
 
     def __init__(self):
         import joblib
-        self.model = joblib.load(self.class_model.path_of("saved_model.pkl"))
+        self.model = joblib.load(self.class_model.path_of("saved_model.pkl")).eval()
 
     def decode_base64(self, b64_string):
         decoded = base64.b64decode(b64_string)
@@ -31,6 +31,7 @@ class Classifier:
         image = self.decode_base64(image_b64)
 
         tensor = F.to_tensor(image)
+        tensor = F.normalize(tensor, mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225))
         resized = Resize((256, 256))(tensor)
         input_tensor = resized.reshape((1, 3, 256, 256))
 

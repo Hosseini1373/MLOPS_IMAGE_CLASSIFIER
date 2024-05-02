@@ -7,12 +7,15 @@ from torchvision.transforms import functional as F
 import PIL
 from matplotlib import pyplot as plt
 from torch.utils.data import random_split
+from collections import Counter
 
 
 def get_img(path, image_size):
     # dog 11702, cat 666 corrupted
     img = PIL.Image.open(path).convert("RGB")
-    tensor = F.to_tensor(img) / 255
+    tensor = F.to_tensor(img)
+    tensor = F.normalize(tensor, mean=(0.485, 0.456, 0.406),
+                         std=(0.229, 0.224, 0.225))
     return Resize((image_size, image_size), antialias=True)(tensor)
 
 
@@ -23,6 +26,7 @@ def produce_labels(paths):
             data.append(0)
         else:
             data.append(1)
+    print(Counter(data))
     return data
 
 
@@ -41,7 +45,7 @@ class dset(Dataset):
 
 def create_loaders(root_path, image_size, bsize, nworkers):
     data = dset(root_path, size=image_size)
-    train_data, valid_data, test_data = random_split(data, (0.7, 0.15, 0.15))
+    train_data, valid_data = random_split(data, (0.7, 0.3))
     train_loader = DataLoader(train_data,
                               batch_size=bsize,
                               shuffle=True,
@@ -64,8 +68,8 @@ def test_images_not_corrupted():
 
 
 if __name__ == "__main__":
-    #ROOT_DIR = "/home/glace/repos/MLOPS_IMAGE_CLASSIFIER/PetImages/*/*"
-    ROOT_DIR = "/home/glenn/repos/MLOPS_IMAGE_CLASSIFIER/PetImages/*/*"
+    ROOT_DIR = "/home/glace/repos/MLOPS_IMAGE_CLASSIFIER/PetImages/*/*"
+    #ROOT_DIR = "/home/glenn/repos/MLOPS_IMAGE_CLASSIFIER/PetImages/*/*"
     BATCH_SIZE = 4
     N_WORKERS = 4
     IMAGE_SIZE = 256

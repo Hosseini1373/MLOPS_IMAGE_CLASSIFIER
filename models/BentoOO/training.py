@@ -8,6 +8,8 @@ import torch
 import bentoml
 import os
 import wandb
+import numpy as np
+import glob
 
 
 def setup_training(root_path, image_size, batch_size, nworkers, epochs,
@@ -26,19 +28,21 @@ def setup_training(root_path, image_size, batch_size, nworkers, epochs,
         trainer.fit(model=model, train_dataloaders=train_loader,
                     val_dataloaders=valid_loader)
 
-    ROOT_CHECKPOINT_PATH = "../MobileNet/lightning_logs"
-    latest_verison = sorted(os.listdir(ROOT_CHECKPOINT_PATH))[-1]
-    checkpoint_path = os.path.join(os.path.join(ROOT_CHECKPOINT_PATH, latest_verison), "checkpoints/MobileNet.ckpt")
-    model = MobileNet.load_from_checkpoint(checkpoint_path=checkpoint_path).cpu()
+    #print(os.getcwd())
+    ROOT_CHECKPOINT_PATH = "./MLOPS/*/*/*"
+    checkpoints_paths = glob.glob(ROOT_CHECKPOINT_PATH)
+    idx = np.argmax(sorted([os.path.getctime(k) for k in checkpoints_paths]))
+    latest_verison = checkpoints_paths[idx]
+    model = MobileNet.load_from_checkpoint(checkpoint_path=latest_verison).cpu()
     bentoml.picklable_model.save_model("CD-Classifier", model=model)
 
 
 if __name__ == "__main__":
-    ROOT_DIR = "/home/glenn/repos/MLOPS_IMAGE_CLASSIFIER/PetImages/*/*"
+    ROOT_DIR = "/home/glace/repos/MLOPS_IMAGE_CLASSIFIER/PetImages/*/*"
     BATCH_SIZE = 64
     N_WORKERS = 4
     IMAGE_SIZE = 256
-    EPOCHS = 1
+    EPOCHS = 15
     TRAIN = False
 
     setup_training(ROOT_DIR, IMAGE_SIZE,
