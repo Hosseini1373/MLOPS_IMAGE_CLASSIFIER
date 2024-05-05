@@ -28,9 +28,11 @@ jobs:
       - name: Test with pytest
         run: |
           # Assumes tests are setup to run with pytest
-          pip install pytest
-          echo "Testing with pytest."
-          pytest
+          pip install flake8
+          echo "Linting with flake8."
+          make lint
+          echo "Removing unnecessary files."
+          make clean
 
 
       # TDOO: Make the jenkins available with nginx in openstack somehow and then trigger the jenkins job
