@@ -1,0 +1,9 @@
+requests==2.31.0
+pymongo==4.5.0
+public-ip==0.12
+apache-airflow
+psycopg2-binary==2.9.9
+pandas
+virtualenv
+gevent
+python-dotenv

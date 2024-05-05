@@ -41,6 +41,6 @@ jobs:
           url: ${{ secrets.JENKINS_URL }}
           user: ${{ secrets.JENKINS_USER }}
           token: ${{ secrets.JENKINS_TOKEN }}
-          job: "usl_for_embedding_gpu-intensive_tasks"
+          job: "MLOPS_IMAGE_CLASSIFIER_gpu-intensive_tasks"
     
           

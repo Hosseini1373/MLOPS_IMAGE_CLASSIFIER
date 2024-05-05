@@ -14,8 +14,8 @@ bentoml
 transformers
 apache-airflow
 
+# PyTorch specific requirements with a custom index URL
+--find-links https://download.pytorch.org/whl/cpu
 torch
 torchvision
 torchaudio
-
---index-url https://download.pytorch.org/whl/cpu
