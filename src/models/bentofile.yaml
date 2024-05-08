@@ -1,0 +1,17 @@
+service: 'service:Classifier'
+docker:
+  distro: debian
+  python_version: "3.11.8"
+labels:
+  owner: MLOps
+  project: cd-classifier
+include:
+  - 'service.py'
+  - 'MobileNetV3.py'
+python:
+  packages:
+    - "torch --index-url https://download.pytorch.org/whl/cpu"
+    - "torchvision"
+    - "bentoml"
+    - "lightning"
+    - "joblib"
