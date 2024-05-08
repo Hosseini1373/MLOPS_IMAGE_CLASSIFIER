@@ -5,7 +5,7 @@ from dotenv import find_dotenv, load_dotenv
 BATCH_SIZE = 64
 N_WORKERS = 4
 IMAGE_SIZE = 256
-EPOCHS = 1
+EPOCHS = 15
 TRAIN = True
 
 ### define paths 
