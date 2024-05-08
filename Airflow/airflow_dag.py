@@ -5,6 +5,9 @@ from airflow.operators.python_operator import PythonOperator
 from datetime import datetime, timedelta
 from airflow.models import Variable
 from pymongo import MongoClient
+import io
+import base64
+from PIL import Image
 
 # Environment variables
 database_conn_id = Variable.get('MONGODB_KEY')
@@ -43,11 +46,20 @@ def check_feedback(ti):
     for image_doc in images_cursor:
         image_data = image_doc['picture']
         image_id = str(image_doc['_id'])
-        file_path = f'{PetImages_Folder_Path}/{image_id}.jpg'
-        
+        breed = image_doc['breed']  # String dog or cat
+        if breed == "cat":
+            file_path = f'{PetImages_Folder_Path}/Cat/{image_id}.jpg'
+        else:
+            file_path = f'{PetImages_Folder_Path}/Dog/{image_id}.jpg'
+        decoded_data = base64.b64decode(image_data)
+        img = Image.open(io.BytesIO(decoded_data)).convert("RGB")
+        img.save(file_path)
+
+        """
         with open(file_path, 'wb') as f:
             f.write(image_data)
-        
+        """
+
         db['MLOPS'].update_one({'_id': image_doc['_id']}, {'$set': {'trained': True}})
         print(f"Saved {file_path}")
 
