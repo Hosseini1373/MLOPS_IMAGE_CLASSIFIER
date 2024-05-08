@@ -1,3 +1,5 @@
+from src import config
+
 from torchvision.transforms.v2 import Resize
 import re
 import glob
@@ -8,8 +10,6 @@ import PIL
 from matplotlib import pyplot as plt
 from torch.utils.data import random_split
 from collections import Counter
-from pathlib import Path
-from src import config
 
 
 def get_img(path, image_size):
@@ -34,7 +34,9 @@ def produce_labels(paths):
 
 class dset(Dataset):
     def __init__(self, root_path, size):
-        self.file_paths = glob.glob(root_path + "/*")
+        #print(str(root_path) + "/*/*")
+        self.file_paths = glob.glob(str(root_path) + "/*/*")
+        #print(self.file_paths)
         self.labels = produce_labels(self.file_paths)
         self.image_size = size
 
@@ -70,7 +72,7 @@ def test_images_not_corrupted():
 
 
 if __name__ == "__main__":
-
+    print(config.data_dir)
     train_loader, valid_loader = create_loaders(config.data_dir,
                                                 config.IMAGE_SIZE,
                                                 config.BATCH_SIZE,

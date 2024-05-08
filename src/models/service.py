@@ -1,6 +1,5 @@
 from __future__ import annotations
 import bentoml
-import numpy as np
 from PIL import Image
 from torchvision.transforms import functional as F
 from torchvision.transforms.v2 import Resize

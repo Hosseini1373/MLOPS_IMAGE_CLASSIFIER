@@ -1,4 +1,4 @@
-# Hi Glen, I have created a bash script that you can use to create a container for the BentoML model.
+# Hi Glenn, I have created a bash script that you can use to create a container for the BentoML model.
 # This is similar to create_container.bash, but it includes the commands to activate the Conda environment and run the training script.
 # for my case, I have a Conda environment called mlops_image_classifier, and the training script is training.py.
 # feel free to modify the script to suit your needs regarding the training script. I would use
