@@ -23,19 +23,20 @@ def setup_training(root_path, image_size, batch_size, nworkers, epochs,
         trainer = lt.Trainer(max_epochs=epochs,
                              logger=WandbLogger(project="MLOPS",
                                                 name="mobilenet",
-                                                save_dir=config.model_logs_dir),
+                                                save_dir=config
+                                                .model_logs_dir),
                              callbacks=[checkpoint_callback])
         model = MobileNet()
 
         trainer.fit(model=model, train_dataloaders=train_loader,
                     val_dataloaders=valid_loader)
 
-    #print(os.getcwd())
     ROOT_CHECKPOINT_PATH = str(config.model_checkpoints) + "/*/*/*"
     checkpoints_paths = glob.glob(ROOT_CHECKPOINT_PATH)
     idx = np.argmax(sorted([os.path.getctime(k) for k in checkpoints_paths]))
     latest_verison = checkpoints_paths[idx]
-    model = MobileNet.load_from_checkpoint(checkpoint_path=latest_verison).cpu()
+    model = MobileNet.load_from_checkpoint(checkpoint_path=latest_verison) \
+        .cpu()
     bentoml.picklable_model.save_model("CD-Classifier", model=model)
 
 

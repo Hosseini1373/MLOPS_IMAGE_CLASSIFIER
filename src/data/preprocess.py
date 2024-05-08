@@ -4,12 +4,10 @@ from torchvision.transforms.v2 import Resize
 import re
 import glob
 from torch.utils.data import Dataset, DataLoader
-from torchvision.transforms.v2 import ToPILImage
 from torchvision.transforms import functional as F
 import PIL
 from matplotlib import pyplot as plt
 from torch.utils.data import random_split
-from collections import Counter
 
 
 def get_img(path, image_size):
@@ -28,15 +26,12 @@ def produce_labels(paths):
             data.append(0)
         else:
             data.append(1)
-    #print(Counter(data))
     return data
 
 
 class dset(Dataset):
     def __init__(self, root_path, size):
-        #print(str(root_path) + "/*/*")
         self.file_paths = glob.glob(str(root_path) + "/*/*")
-        #print(self.file_paths)
         self.labels = produce_labels(self.file_paths)
         self.image_size = size
 
@@ -44,7 +39,8 @@ class dset(Dataset):
         return len(self.file_paths)
 
     def __getitem__(self, index):
-        return get_img(self.file_paths[index], self.image_size), self.labels[index]
+        return get_img(self.file_paths[index],
+                       self.image_size), self.labels[index]
 
 
 def create_loaders(root_path, image_size, bsize, nworkers):

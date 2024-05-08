@@ -1,14 +1,13 @@
 from pathlib import Path
-from dotenv import find_dotenv, load_dotenv
 
-### Define Parameters for Training
+# Define Parameters for Training
 BATCH_SIZE = 64
 N_WORKERS = 4
 IMAGE_SIZE = 256
 EPOCHS = 15
 TRAIN = True
 
-### define paths 
+# define paths
 
 # Project root directory
 project_dir = Path(__file__).resolve().parents[0]

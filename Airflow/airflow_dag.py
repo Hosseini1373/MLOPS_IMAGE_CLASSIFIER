@@ -33,6 +33,7 @@ dag = DAG(
     schedule_interval='@daily',
 )
 
+
 def check_feedback(ti):
     x = db['MLOPS'].aggregate([{"$match": {"trained": False}}, {"$count": "total not trained"}])
     print(list(x))  # Debugging: Print output to Airflow logs

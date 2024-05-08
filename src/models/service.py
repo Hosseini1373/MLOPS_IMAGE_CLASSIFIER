@@ -5,8 +5,8 @@ from torchvision.transforms import functional as F
 from torchvision.transforms.v2 import Resize
 import io
 import base64
-from MobileNetV3 import MobileNet
-#VM_IP:443/inference --> Bento-Server
+from MobileNetV3 import MobileNet  # noqa: F401
+# VM_IP:443/inference --> Bento-Server
 
 
 @bentoml.service(
@@ -19,7 +19,8 @@ class Classifier:
 
     def __init__(self):
         import joblib
-        self.model = joblib.load(self.class_model.path_of("saved_model.pkl")).eval()
+        self.model = joblib.load(self.class_model
+                                 .path_of("saved_model.pkl")).eval()
 
     def decode_base64(self, b64_string):
         decoded = base64.b64decode(b64_string)
@@ -30,7 +31,8 @@ class Classifier:
         image = self.decode_base64(image_b64)
 
         tensor = F.to_tensor(image)
-        tensor = F.normalize(tensor, mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225))
+        tensor = F.normalize(tensor, mean=(0.485, 0.456, 0.406),
+                             std=(0.229, 0.224, 0.225))
         resized = Resize((256, 256))(tensor)
         input_tensor = resized.reshape((1, 3, 256, 256))
 
