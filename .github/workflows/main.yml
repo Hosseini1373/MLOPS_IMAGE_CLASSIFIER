@@ -43,5 +43,3 @@ jobs:
           user: ${{ secrets.JENKINS_USER }}
           token: ${{ secrets.JENKINS_TOKEN }}
           job: "MLOPS_IMAGE_CLASSIFIER_gpu-intensive_tasks"
-    
-          
