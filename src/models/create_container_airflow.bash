@@ -17,6 +17,7 @@ conda activate mlops_image_classifier
 bentoml build /src/models/.
 bentoml containerize animal_classifier:latest
 
+docker login -u bethagle -p "$DOCKER_TOKEN"
 
 # Tagging and pushing the Docker image
 TAG=$(docker images --format "{{.Tag}}" | head -n 1)ls
