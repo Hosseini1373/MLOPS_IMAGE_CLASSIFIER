@@ -11,7 +11,18 @@ def main():
     st.title("Cat or Dog classifier")
 
     uploaded_files = st.file_uploader("Choose an image here:", accept_multiple_files=False, type=['jpg','png','jpeg'])
+    
+
     if uploaded_files is not None:
+        if "upfile" not in st.session_state:
+            st.session_state.upfile = uploaded_files
+        elif uploaded_files != st.session_state.upfile:
+            for key in st.session_state.keys():
+                if key != "ip":
+                    del st.session_state[key]
+            st.session_state.upfile = uploaded_files
+            
+
         img = uploaded_files.getvalue()
 
 
@@ -38,7 +49,7 @@ def main():
                 st.write("##")
                 st.write("##")
                 if 'prediction' not in st.session_state:
-                    if id['class'] == 0:
+                    if id['class'] == "0.0":
                         animal = 'cat'
                     else:
                         animal = 'dog'
@@ -66,8 +77,11 @@ def main():
                     st.button('right', on_click=saveright,type='secondary')
                 with col2c:
                     st.button('wrong', on_click=savefalse,type='secondary')
+    elif uploaded_files is None and "id" in st.session_state:
+        for key in st.session_state.keys():
+            if key != "ip":
+                del st.session_state[key]
 
-            
 
 
 
