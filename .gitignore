@@ -89,4 +89,6 @@ target/
 .mypy_cache/
 
 /PetImages
-/PetImages
+/PetImagesOld
+src/data/PetImages
+src/data/PetImagesOld

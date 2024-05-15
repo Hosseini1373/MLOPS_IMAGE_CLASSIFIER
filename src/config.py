@@ -4,7 +4,7 @@ from pathlib import Path
 BATCH_SIZE = 64
 N_WORKERS = 4
 IMAGE_SIZE = 256
-EPOCHS = 15
+EPOCHS = 1
 TRAIN = True
 
 # define paths

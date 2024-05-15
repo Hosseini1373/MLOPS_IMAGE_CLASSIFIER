@@ -121,6 +121,10 @@ sudo systemctl status airflow-scheduler
 
 If there are any issues, check the logs with:
 
+Live Logs of airflow scheduler:
+`journalctl -u airflow-scheduler -f`
+
+
 ```bash
 journalctl -u airflow-webserver
 journalctl -u airflow-scheduler
@@ -144,3 +148,8 @@ sudo systemctl restart airflow-webserver
 sudo systemctl restart airflow-scheduler
 ```
 
+
+
+### Env Variables
+
+In the DAGs we use the airflow envrionement variables like `PetImages_Folder_Path`

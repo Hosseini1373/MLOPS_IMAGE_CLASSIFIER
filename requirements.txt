@@ -13,6 +13,10 @@ kaggle
 bentoml
 transformers
 apache-airflow
+pillow
+torchvision
+matplotlib
+
 
 # PyTorch specific requirements with a custom index URL
 --find-links https://download.pytorch.org/whl/cpu
