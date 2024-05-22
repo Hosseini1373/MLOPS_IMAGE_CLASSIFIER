@@ -39,6 +39,7 @@ Project Organization
     ├── setup.py           <- makes project pip installable (pip install -e .) so src can be imported
     ├── src                <- Source code for use in this project.
     │   ├── __init__.py    <- Makes src a Python module
+    │   ├── config.py      <- Training parameters, directory paths
     │   │
     │   ├── data           <- Scripts to download, preprocess data for training
     │   │   │
@@ -49,10 +50,11 @@ Project Organization
     │   │
     │   ├── models         <- Scripts to train model, bento service definition, bash file for airlflow pipeline
     │   │   │                
-    │   │   ├── MobileNetv3.py 
-    │   │   ├── training.py
+    │   │   ├── MobileNetv3.py <- model definition
+    │   │   ├── training.py 
     │   │   ├── create_contrainer_airflow.bash
-    │   │   ├── bentofile.yaml
+    │   │   ├── bentofile.yaml <- yaml file to build a bento
+    │   │   ├── checkpoints   <- current modle checkpoint is stored in here
     │   │   └── service.py
 
 
