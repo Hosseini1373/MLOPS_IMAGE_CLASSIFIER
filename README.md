@@ -50,11 +50,11 @@ Project Organization
     │   │
     │   ├── models         <- Scripts to train model, bento service definition, bash file for airlflow pipeline
     │   │   │                
-    │   │   ├── MobileNetv3.py <- model definition
+    │   │   ├── MobileNetv3.py     <- model definition
     │   │   ├── training.py 
     │   │   ├── create_contrainer_airflow.bash
-    │   │   ├── bentofile.yaml <- yaml file to build a bento
-    │   │   ├── checkpoints   <- current modle checkpoint is stored in here
+    │   │   ├── bentofile.yaml     <- yaml file to build a bento
+    │   │   ├── checkpoints        <- current modle checkpoint is stored in here
     │   │   └── service.py
 
 
