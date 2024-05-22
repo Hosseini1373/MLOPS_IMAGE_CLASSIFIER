@@ -40,21 +40,20 @@ Project Organization
     ├── src                <- Source code for use in this project.
     │   ├── __init__.py    <- Makes src a Python module
     │   │
-    │   ├── data           <- Scripts to download or generate data
-    │   │   └── make_dataset.py
+    │   ├── data           <- Scripts to download, preprocess data for training
+    │   │   │
+    │   │   ├── preprocess.py 
+    │   │   ├── download_dataset.bash  
+    │   │   └── PetImages
     │   │
-    │   ├── features       <- Scripts to turn raw data into features for modeling
-    │   │   └── build_features.py
     │   │
-    │   ├── models         <- Scripts to train models and then use trained models to make
-    │   │   │                 predictions
-    │   │   ├── predict_model.py
-    │   │   └── train_model.py
-    │   │
-    │   └── visualization  <- Scripts to create exploratory and results oriented visualizations
-    │       └── visualize.py
-    │
-    └── tox.ini            <- tox file with settings for running tox; see tox.readthedocs.io
+    │   ├── models         <- Scripts to train model, bento service definition, bash file for airlflow pipeline
+    │   │   │                
+    │   │   ├── MobileNetv3.py 
+    │   │   ├── training.py
+    │   │   ├── create_contrainer_airflow.bash
+    │   │   ├── bentofile.yaml
+    │   │   └── service.py
 
 
 --------
