@@ -9,6 +9,11 @@ Project Organization
     ├── LICENSE
     ├── Makefile           <- Makefile with commands like `make data` or `make train`
     ├── README.md          <- The top-level README for developers using this project.
+    ├── Airflow            
+    ├── Back-end           <- Flask server and docker file
+    ├── Dockercompose_GCS  <- Dockercompose from Google cloud with Watchtower 
+    ├── Front-end          <- Front-end and docker file 
+    ├── Reversproxy        <- nginx Reverse proxy configuration for GCS
     ├── data
     │   ├── external       <- Data from third party sources.
     │   ├── interim        <- Intermediate data that has been transformed.
